@@ -1,18 +1,57 @@
 ﻿using LineDrawingDemo.LineDrawingLib.Models;
+using System;
 using System.Drawing;
 
 namespace LineDrawingDemo.LineDrawingLib
 {
-    // source: http://www.dcs.gla.ac.uk/~pat/52233/slides/Geometry1x1.pdf
-    public class Geometry
+    /// Source: http://www.dcs.gla.ac.uk/~pat/52233/slides/Geometry1x1.pdf
+    public static class Geometry
     {
-        public Orientation ComputeOrientation(Point pointA, Point pointB, Point pointC)
+        /// <summary>
+        /// Checks whether line segment AB intersects with line segment CD
+        /// </summary>
+        public static bool SegmentsIntersect(Point pointA, Point pointB, Point pointC, Point pointD)
+        {
+            // Compute all possible orientations
+            var abcOrientation = ComputeOrientation(pointA, pointB, pointC);
+            var abdOrientation = ComputeOrientation(pointA, pointB, pointD);
+            var cdaOrientation = ComputeOrientation(pointC, pointD, pointA);
+            var cdbOrientation = ComputeOrientation(pointC, pointD, pointB);
+
+            // Check whether general case is satisfied (6th slide)
+            if (abcOrientation != abdOrientation && cdaOrientation != cdbOrientation) { return true; }
+
+            // Check whether four special cases are satisfied (9th slide)
+            if (abcOrientation == Orientation.Collinear && BelongsToSegment(pointA, pointC, pointB)) { return true; }
+            if (abdOrientation == Orientation.Collinear && BelongsToSegment(pointA, pointD, pointB)) { return true; }
+            if (cdaOrientation == Orientation.Collinear && BelongsToSegment(pointC, pointA, pointD)) { return true; }
+            if (cdbOrientation == Orientation.Collinear && BelongsToSegment(pointC, pointB, pointD)) { return true; }
+
+            return false;
+        }
+
+        /// <summary>
+        ///  Computes orientation of point C with respect to line segment AB (10th slide)    
+        /// </summary>
+        private static Orientation ComputeOrientation(Point pointA, Point pointB, Point pointC)
         {
             var result = (pointB.Y - pointA.Y) * (pointC.X - pointB.X) - (pointB.X - pointA.X) * (pointC.Y - pointB.Y);
 
             if (result > 0) { return Orientation.Clockwise; }
 
-            return result == 0 ? Orientation.Collinear : Orientation.Counterclockwise;
+            return result < 0 ? Orientation.Counterclockwise : Orientation.Collinear;
         }
+
+        /// <summary>
+        /// Checks whether point C belongs to line segment AB for special cases (9th slide)
+        /// </summary>
+        private static bool BelongsToSegment(Point pointA, Point pointB, Point PointC)
+        {
+            var xWithinRange = PointC.X <= Math.Max(pointA.X, pointB.X) && PointC.X >= Math.Min(pointA.X, pointB.X);
+            var yWithinRange = PointC.Y <= Math.Max(pointA.Y, pointB.Y) && PointC.Y >= Math.Min(pointA.Y, pointB.Y);
+         
+            return xWithinRange && yWithinRange;
+        }
+
     }
 }
