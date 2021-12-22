@@ -1,7 +1,7 @@
 ﻿
 namespace LineDrawingDemo.WinFormsApp
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,13 +29,33 @@ namespace LineDrawingDemo.WinFormsApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.DrawingPanel = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // DrawingPanel
+            // 
+            this.DrawingPanel.Location = new System.Drawing.Point(12, 12);
+            this.DrawingPanel.Name = "DrawingPanel";
+            this.DrawingPanel.Size = new System.Drawing.Size(776, 426);
+            this.DrawingPanel.TabIndex = 0;
+            this.DrawingPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawingPanel_Paint);
+            this.DrawingPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DrawingPanel_MouseDown);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.DrawingPanel);
+            this.Name = "MainForm";
+            this.Text = "Line Drawing Demo";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel DrawingPanel;
     }
 }
 
