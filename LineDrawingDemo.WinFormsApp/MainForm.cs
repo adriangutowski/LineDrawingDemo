@@ -1,14 +1,13 @@
-﻿using LineDrawingDemo.LineDrawingLib.Models;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using static LineDrawingDemo.LineDrawingLib.LineDrawing;
 
 namespace LineDrawingDemo.WinFormsApp
 {
     public partial class MainForm : Form
     {
-        private static readonly List<Line> _lineList = new List<Line>();
-        private static Line _line = new Line();
+        private const uint _clicskMax = 2;
+        private static uint _clicksCount = 0;
 
         public MainForm()
         {
@@ -17,24 +16,20 @@ namespace LineDrawingDemo.WinFormsApp
 
         private void DrawingPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            var point = DrawingPanel.PointToClient(Cursor.Position);
+            if (_clicksCount++ == 0) { AddNewLine(); }
 
-            if (_line.Points.Count < 1)
+            AddNewPoint(DrawingPanel.PointToClient(Cursor.Position));
+
+            if (_clicksCount == _clicskMax)
             {
-                _line.Points.Add(point);
-            }
-            else
-            {
-                _line.Points.Add(point);
-                _lineList.Add(_line);
-                _line = new Line();
                 DrawingPanel.Invalidate();
+                _clicksCount = 0;
             }
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            _lineList.ForEach(line =>
+            GetLines().ForEach(line =>
             {
                 using var pen = new Pen(line.Color);
                 e.Graphics.DrawLines(pen, line.Points.ToArray());
