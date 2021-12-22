@@ -6,4 +6,8 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LineDrawingDemo.LineDrawingLib\LineDrawingDemo.LineDrawingLib.csproj" />
+  </ItemGroup>
+
 </Project>

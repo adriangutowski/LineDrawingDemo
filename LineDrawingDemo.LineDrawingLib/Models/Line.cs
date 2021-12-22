@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace LineDrawingDemo.WinFormsApp
+namespace LineDrawingDemo.LineDrawingLib.Models
 {
     public class Line
     {

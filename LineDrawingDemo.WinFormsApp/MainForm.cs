@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LineDrawingDemo.LineDrawingLib.Models;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
