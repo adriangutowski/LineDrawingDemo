@@ -13,10 +13,6 @@ namespace LineDrawingDemo.LineDrawingLib
 
         public static void AddNewLine() => _lines.Add(new Line());
 
-        public static void AddNewPoint(Point point)
-        {
-            var lastLine = _lines.Last();
-            lastLine.Points.Add(point);
-        }
+        public static void AddNewPoint(Point point) => _lines.Last().Points.Add(point);
     }
 }

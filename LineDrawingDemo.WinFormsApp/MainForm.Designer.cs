@@ -34,6 +34,7 @@ namespace LineDrawingDemo.WinFormsApp
             // 
             // DrawingPanel
             // 
+            this.DrawingPanel.BackColor = System.Drawing.Color.White;
             this.DrawingPanel.Location = new System.Drawing.Point(12, 12);
             this.DrawingPanel.Name = "DrawingPanel";
             this.DrawingPanel.Size = new System.Drawing.Size(776, 426);
