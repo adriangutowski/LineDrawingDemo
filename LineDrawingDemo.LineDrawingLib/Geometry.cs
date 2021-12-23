@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace LineDrawingDemo.LineDrawingLib
 {
-    /// Source: http://www.dcs.gla.ac.uk/~pat/52233/slides/Geometry1x1.pdf
+    // Source: http://www.dcs.gla.ac.uk/~pat/52233/slides/Geometry1x1.pdf
     public static class Geometry
     {
         /// <summary>

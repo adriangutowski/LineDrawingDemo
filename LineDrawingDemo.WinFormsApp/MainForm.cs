@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using static LineDrawingDemo.LineDrawingLib.LineDrawing;
+using LineDrawingDemo.LineDrawingLib;
 
 namespace LineDrawingDemo.WinFormsApp
 {
@@ -16,24 +17,25 @@ namespace LineDrawingDemo.WinFormsApp
 
         private void DrawingPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_clicksCount++ == 0) { AddNewLine(); }
+            if (_clicksCount++ == 0) { LineDrawing.AddNewLine(); }
 
-            var point = DrawingPanel.PointToClient(Cursor.Position);
-            AddNewPoint(point);
+            LineDrawing.AddToLastLine(new Point(e.X, e.Y));
 
-            if (_clicksCount == _clicskMax)
-            {
-                DrawingPanel.Invalidate();
-                _clicksCount = 0;
-            }
+            if (_clicksCount == _clicskMax) { _clicksCount = 0; }
+
+            DrawingPanel.Invalidate();
         }
 
         private void DrawingPanel_Paint(object sender, PaintEventArgs e)
         {
-            GetLines().ForEach(line =>
+            LineDrawing.GetLines().ForEach(line =>
             {
                 using var pen = new Pen(line.Color);
-                e.Graphics.DrawLines(pen, line.Points.ToArray());
+
+                if (line.Points.Count == 1)
+                    e.Graphics.DrawRectangle(pen, new Rectangle(line.Points.Last(), new Size(1, 1)));
+                else
+                    e.Graphics.DrawLines(pen, line.Points.ToArray());
             });
         }
     }
