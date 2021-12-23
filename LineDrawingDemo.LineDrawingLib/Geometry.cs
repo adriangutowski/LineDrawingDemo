@@ -22,10 +22,10 @@ namespace LineDrawingDemo.LineDrawingLib
             if (abcOrientation != abdOrientation && cdaOrientation != cdbOrientation) { return true; }
 
             // Check whether four special cases are satisfied (9th slide)
-            if (abcOrientation == Orientation.Collinear && BelongsToSegment(pointA, pointC, pointB)) { return true; }
-            if (abdOrientation == Orientation.Collinear && BelongsToSegment(pointA, pointD, pointB)) { return true; }
-            if (cdaOrientation == Orientation.Collinear && BelongsToSegment(pointC, pointA, pointD)) { return true; }
-            if (cdbOrientation == Orientation.Collinear && BelongsToSegment(pointC, pointB, pointD)) { return true; }
+            if (abcOrientation == Orientation.Collinear) { return BelongsToSegment(pointA, pointB, pointC); }
+            if (abdOrientation == Orientation.Collinear) { return BelongsToSegment(pointA, pointB, pointD); }
+            if (cdaOrientation == Orientation.Collinear) { return BelongsToSegment(pointC, pointD, pointA); }
+            if (cdbOrientation == Orientation.Collinear) { return BelongsToSegment(pointC, pointD, pointB); }
 
             return false;
         }
@@ -52,6 +52,5 @@ namespace LineDrawingDemo.LineDrawingLib
          
             return xWithinRange && yWithinRange;
         }
-
     }
 }
