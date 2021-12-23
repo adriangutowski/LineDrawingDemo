@@ -18,7 +18,8 @@ namespace LineDrawingDemo.WinFormsApp
         {
             if (_clicksCount++ == 0) { AddNewLine(); }
 
-            AddNewPoint(DrawingPanel.PointToClient(Cursor.Position));
+            var point = DrawingPanel.PointToClient(Cursor.Position);
+            AddNewPoint(point);
 
             if (_clicksCount == _clicskMax)
             {
