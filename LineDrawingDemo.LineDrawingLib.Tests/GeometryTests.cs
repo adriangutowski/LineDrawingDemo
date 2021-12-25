@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Drawing;
+using System.Linq;
 
 namespace LineDrawingDemo.LineDrawingLib.Tests
 {
@@ -52,6 +53,40 @@ namespace LineDrawingDemo.LineDrawingLib.Tests
 
             // Assert
             Assert.IsFalse(segmentsIntersect);
+        }
+
+        [Test]
+        public void ComputeSimpleClosedPath_UnorderedPoints_ReturnOrderedPoints()
+        {
+            // Arrange
+            var points = new Point[]
+            {
+                new Point(1, 4),
+                new Point(2, 2),
+                new Point(3, 3),
+                new Point(5, 5),
+                new Point(1, 1),
+                new Point(2, 3),
+                new Point(4, 2),
+                new Point(4, 4)
+            };
+            var orderedPoints = new Point[]
+            {
+                new Point(1, 1),
+                new Point(4, 2),
+                new Point(2, 2),
+                new Point(3, 3),
+                new Point(4, 4),
+                new Point(5, 5),
+                new Point(2, 3),
+                new Point(1, 4)
+            };
+
+            // Act
+            Geometry.ComputeSimpleClosedPath(ref points);
+
+            // Assert
+            Assert.IsTrue(points.SequenceEqual(orderedPoints));
         }
     }
 }

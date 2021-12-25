@@ -17,11 +17,11 @@ namespace LineDrawingDemo.WinFormsApp
 
         private void DrawingPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (_clicksCount++ == 0) { LineDrawing.AddNewLine(); }
+            if (_clicksCount++ == 0) LineDrawing.AddNewLine();
 
             LineDrawing.AddToLastLine(new Point(e.X, e.Y));
 
-            if (_clicksCount == _clicskMax) { _clicksCount = 0; }
+            if (_clicksCount == _clicskMax) _clicksCount = 0;
 
             DrawingPanel.Invalidate();
         }
